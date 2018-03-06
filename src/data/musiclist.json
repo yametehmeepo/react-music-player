@@ -1,0 +1,39 @@
+{
+	"list": [
+		{
+			"id": 0,
+			"title": "光辉岁月",
+			"artist": "beyond",
+			"file": "http://fs.w.kugou.com/201803051701/92ffe6470cef09066fd4079b1d358754/G012/M01/0A/01/TA0DAFT_BhaAUQwWAEm_q8kA8x0519.mp3",
+			"cover": "http://imge.kugou.com/stdmusic/20150715/20150715223649921352.jpg"
+		},
+		{
+			"id": 1,
+			"title": "天空之城",
+			"artist": "网络",
+			"file": "http://dl.stream.qqmusic.qq.com/C4L0002vsinZ3VJQz8.m4a?vkey=AF9935B9324CE21EFB1FC37131A079A8CD6A26FFF8DD38148E96003FCD38EAA79B9F85410170DDD7E48EF857141D7DD4595410338814B9A0&guid=2099242356&uin=0&fromtag=66",
+			"cover": "http://y.gtimg.cn/music/photo_new/T002R300x300M000003wy2xs3WTKF9.jpg"
+		},
+		{
+			"id": 2,
+			"title": "像我这样的人",
+			"artist": "毛不易",
+			"file": "http://dl.stream.qqmusic.qq.com/C40000375L600p9sxv.m4a?vkey=FD5D3401A60FD6F965EF1B07F27195F98DC6DE1FA070E4D967CC0583F6D160B64D3F7BD268DF1BE3B85E5F893DC6EC00B2132507C83AB92A&guid=2099242356&uin=0&fromtag=66",
+			"cover": "http://y.gtimg.cn/music/photo_new/T001R300x300M000001BHDR33FZVZ0.jpg"
+		},
+		{
+			"id": 3,
+			"title": "火星人来过",
+			"artist": "薛之谦",
+			"file": "http://dl.stream.qqmusic.qq.com/C400002tsQtg4CQZyK.m4a?vkey=5FEAB53B4D9C443E02AC7666C2162D1CE67994A1AAF61AA1C09167222CD1A65F34E3CE298EF4BFEFCE48E5207E554998EDECBA525955030A&guid=2099242356&uin=0&fromtag=66",
+			"cover": "http://y.gtimg.cn/music/photo_new/T001R300x300M000002J4UUk29y8BY.jpg"
+		},
+		{
+			"id": 4,
+			"title": "Lies(谎言)",
+			"artist": "BIGBANG",
+			"file": "http://dl.stream.qqmusic.qq.com/C400002Pu2B936cD58.m4a?vkey=606A8061E60015AA3623167847A1EB2F8958531A877F20F7567944D9034FABDF9737CF85D9AB6FAA5AA9C4AF7B4BFEA62DF498C5816376B2&guid=2099242356&uin=0&fromtag=66",
+			"cover": "http://y.gtimg.cn/music/photo_new/T002R300x300M000001b1IYX07NFx6.jpg"
+		}
+	]
+}
