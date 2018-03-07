@@ -1,0 +1,52 @@
+.musiclist{
+	margin-top: 20px;
+	li{
+		position: relative;
+		padding: 0 0 0 8px;
+		border-bottom: 1px solid #e6e6e6;
+		font-size: 15px;
+		line-height: 36px;
+		color: #000;
+		cursor: pointer;
+		&:hover{
+			background: #eee;
+		}
+		&.active{
+			color: #27a156;
+		}
+		.del{
+			display: block;
+			position: absolute;
+			cursor: pointer;
+			width: 30px;
+			height: 30px;
+			right: 15px;
+			top: 50%;
+			transform: translateY(-50%);
+			opacity: 0.5;
+			&:before{
+				position: absolute;
+				width: 30px;
+				height: 1px;
+				content: "";
+				background: #3d3d3c;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%) rotate(45deg);
+			}
+			&:after{
+				position: absolute;
+				width: 30px;
+				height: 1px;
+				content: "";
+				background: #3d3d3c;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%) rotate(-45deg);
+			}
+			&:hover{
+				opacity: 1;
+			}
+		}
+	}
+}
