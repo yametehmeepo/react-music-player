@@ -34,9 +34,9 @@ export default class App extends Component {
     this.changepausevolume = this.changepausevolume.bind(this);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
+    this.deletemusic = this.deletemusic.bind(this);
   }
   componentDidMount(){
-    console.log(Math.floor(Math.random()*this.state.musiclist.length));
     var _this = this;
     $('#player').jPlayer({
       supplied: "mp3",
@@ -95,6 +95,9 @@ export default class App extends Component {
     PubSub.subscribe('PLAY_MODE',(msg,currentPlayMode)=>{
       this.playmodehandler(currentPlayMode);
     });
+    PubSub.subscribe('DELETE_MUSIC',(msg,id)=>{
+      this.deletemusic(id);
+    });
   }
   componentWillUnmount(){
     $('#player').unbind($.jPlayer.event.loadedmetadata );
@@ -108,6 +111,44 @@ export default class App extends Component {
     PubSub.unsubscribe('CONFIRMPLAY');
     PubSub.unsubscribe('CHANGE_MUSIC');
     PubSub.unsubscribe('PLAY_THIS');
+    PubSub.unsubscribe('DELETE_MUSIC');
+  }
+  deletemusic(itemindex){
+    var _this = this;
+    this.setState({
+      musiclist: this.state.musiclist.filter((item,index) => {
+        return index !== itemindex
+      })
+    });
+    if(this.state.currentIndex === itemindex){
+      if(this.state.musiclist.length <=1 ){
+        $('#player').jPlayer("stop");
+        $('#player').jPlayer("setMedia", {
+          mp3: '',
+        });
+        this.setState({
+          currentIndex: null,
+          isplayed: false,
+          pauseProgress: 0,
+        }); 
+        $(".content").css('display','none');
+      }else{
+        var _itemeindex = itemindex === this.state.musiclist.length?0:itemindex; 
+        $('#player').jPlayer("stop");
+        $('#player').jPlayer("setMedia", {
+          mp3: _this.state.musiclist[_itemeindex].file,
+        });
+        this.setState({
+          currentIndex: _itemeindex,
+          isplayed: false,
+          pauseProgress: 0,
+        });
+      }
+    }else if(this.state.currentIndex > itemindex){
+      this.setState({
+        currentIndex: this.state.currentIndex - 1,
+      });
+    }
   }
   playmodehandler(currentPlayMode){
     this.setState({
@@ -117,21 +158,12 @@ export default class App extends Component {
   changemusichandler(currentIndex){
     var _this = this;
     this.setState({
-      currentIndex
+      currentIndex: currentIndex,
+      isplayed: true
     });
-    $('#player').jPlayer('destroy');//销毁jPlayer然后重新实例化jPlayer播放新的歌曲
-    $('#player').jPlayer({//API参考http://www.jplayer.cn/developer-guide.html#jPlayer-event-object
-        ready: function(e){
-          $(this).jPlayer("setMedia", {
-            mp3: _this.state.musiclist[currentIndex].file,
-          }).jPlayer('play');
-        },
-        supplied: "mp3",
-        wmode: "window",
-        muted: false,
-        volume: 0.3
-  });
-
+    $('#player').jPlayer("setMedia", {
+      mp3: _this.state.musiclist[currentIndex].file,
+    }).jPlayer('play');
   }
   changepauseprogress(pauseProgress){
     this.setState({
@@ -176,6 +208,7 @@ export default class App extends Component {
       <List 
         musiclist={this.state.musiclist}
         currentIndex={this.state.currentIndex}
+        isplayed={this.state.isplayed}
       />
     );
     const Lyricss = () => (
@@ -189,9 +222,9 @@ export default class App extends Component {
         <div className="App">
           <Header />
           <Switch>
-            <Route exact path="/" component={Players} />
-            <Route path="/list" component={Lists} />
-            <Route path="/lyrics" component={Lyricss} />
+            <Route exact path="/" render={Players} />
+            <Route path="/list" render={Lists} />
+            <Route path="/lyrics" render={Lyricss} />
           </Switch>
         </div>  
       </Router>

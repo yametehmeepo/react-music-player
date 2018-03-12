@@ -2,7 +2,6 @@ import React from 'react'
 import PubSub from 'pubsub-js';
 import { Link } from 'react-router-dom'
 import Progress from '../progress/progress'
-import Imgcover from './imgcover.js'
 import $ from 'jquery';
 import 'jplayer';
 import './player.less'
@@ -46,6 +45,7 @@ export default class Player extends React.Component {
 		//解绑keyup事件
 		$(document).unbind('keyup');
 	}
+
 	changeprogress(progress){
 	    $('#player').jPlayer('play',progress*this.props.totaltime);
 	    PubSub.publish('CONFIRMPLAY');
@@ -64,20 +64,29 @@ export default class Player extends React.Component {
 	}
 	changemusic(flag,e){
 		var len = this.props.musiclist.length-1;
-		var index = this.props.currentIndex;
-		if(flag>0){
-			index+=1;
-			if(index>len){
-				index = 0;
+		var index = null;
+		if(this.props.currentPlayMode === 2){
+			index = Math.floor(Math.random()*this.props.musiclist.length);
+			while(index === this.props.currentIndex){
+				index = Math.floor(Math.random()*this.props.musiclist.length);
 			}
 		}else{
-			index-=1;
-			if(index<0){
-				index = len;
-			}
+			index = this.props.currentIndex;
+			if(flag>0){
+				index+=1;
+				if(index>len){
+					index = 0;
+				}
+			}else{
+				index-=1;
+				if(index<0){
+					index = len;
+				}
+			}	
 		}
+		
 		//$('.rotateimg').attr('src','');
-		//$('.rotateimg').attr('class','rotateimg');
+		$('.rotateimg').attr('class','rotateimg');
 	    PubSub.publish('CONFIRMPLAY');
 	    PubSub.publish('CHANGE_MUSIC',index);
 	    PubSub.publish('PAUSEPROGRESS',0);
@@ -97,7 +106,7 @@ export default class Player extends React.Component {
 	render(){
 		var props = this.props;
 		var musiclist = props.musiclist[props.currentIndex];
-		/*var triggerIndex = props.currentIndex%2;
+		var triggerIndex = props.currentIndex%2;
 		var imgclassstr;
 		if(props.isplayed){
 			if(triggerIndex){
@@ -111,13 +120,18 @@ export default class Player extends React.Component {
 			}else{
 				imgclassstr = 'rotateimg pause';
 			}
-		}*/
+		}
+		if(props.musiclist.length<1){
+			return null;
+		}
 		return (
 			<div className="content">
 	          <div className="player-wrapper">
 	          	<h2><Link to="/list" className="op" onClick={this.recordVP}>我的私人乐坊 &gt;</Link></h2>
 	          	<div className="music-info clearfix">
-	          		<Imgcover musicitem={this.props.musiclist[this.props.currentIndex]} />
+	          		<div className="music-cover">
+		      			<img src={musiclist.cover} alt={musiclist.artist} className={imgclassstr} />
+		      		</div>
 	          		<div className="music-controller">
 			          	<h3>{musiclist.title}</h3>
 			          	<h4>{musiclist.artist}</h4>
@@ -131,6 +145,9 @@ export default class Player extends React.Component {
 			          					barColor="#999"
 			          				/>
 			          			</div>
+			          		</div>
+			          		<div className="lyricsbox">
+			          			<Link to="/lyrics">查看歌词</Link>
 			          		</div>
 			          	</div>
 			          	<div className="progress-time">

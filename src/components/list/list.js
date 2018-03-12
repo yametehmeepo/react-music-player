@@ -1,4 +1,5 @@
 import React , { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ListItem from './listitem'
 import './list.less'
 
@@ -7,13 +8,16 @@ export default class List extends Component {
 		var musiclist = this.props.musiclist;
 		var listGroup = musiclist.map((item,index) => {
 			return (
-				<ListItem key={item.id} item={item} activeClass={this.props.currentIndex===index?'active':''}/>
+				<ListItem key={item.id} isplayed={this.props.isplayed} item={item} index={index} activeClass={this.props.currentIndex===index?'active':''}/>
 			)
 		})
 		return (
-			<ul className="musiclist">
-				{ listGroup }
-			</ul>
+			<div>
+				<ul className="musiclist">
+					{ listGroup }
+				</ul>
+				<p className="return"><Link to="/">返回播放列表</Link></p>
+			</div>
 		)
 	}
 }
