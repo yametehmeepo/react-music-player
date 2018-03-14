@@ -199,32 +199,32 @@ export default class App extends Component {
     })
   }
   render() {
-    const Players = () => (
+    /*const Players = () => (
       <Player 
         {...this.state}
       />
-    );
-    const Lists = () => (
+    );*/
+    /*const Lists = () => (
       <List 
         musiclist={this.state.musiclist}
         currentIndex={this.state.currentIndex}
         isplayed={this.state.isplayed}
       />
-    );
-    const Lyricss = () => (
+    );*/
+    /*const Lyricss = () => (
       <Lyrics 
         musiclist={this.state.musiclist}
         currentIndex={this.state.currentIndex}
       />
-    );
+    );*/
     return (
       <Router>
         <div className="App">
           <Header />
           <Switch>
-            <Route exact path="/" render={Players} />
-            <Route path="/list" render={Lists} />
-            <Route path="/lyrics" render={Lyricss} />
+            <Route exact path="/" render={()=>(<Player {...this.state} />)} />
+            <Route path="/list" render={()=>(<List {...this.state} />)} />
+            <Route path="/lyrics" render={()=>(<Lyrics {...this.state} />)} />
           </Switch>
         </div>  
       </Router>
