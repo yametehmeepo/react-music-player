@@ -50,14 +50,38 @@ PS.
 2.通过给App（Context宿主）添加 `childContextTypes` 和 `getChildContext`,  
 可以实现在该组件子结构下的所有组件（e.g. List）直接通过定义`contextTypes`来获取。 
 如果未定义contextTypes的话，context是一个空对象。
-例: 
+例:  
+childContextTypes:  
 <pre><code>
 App.childContextTypes = {
   musiclist: PropTypes.array,
   currentIndex: PropTypes.number,
   isplayed: PropTypes.bool
 }
+</code></pre>  
+
+getChildContext:  
+
+<pre><code>
+constructor(){
+	...
+}  
+
+getChildContext(){
+    return {
+      musiclist: this.state.musiclist,
+      currentIndex: this.state.currentIndex,
+      isplayed: this.state.isplayed
+    }
+  }
+
+render(){
+	return (
+		...
+	)
+}
 </code></pre>
+
 3.用到上面三个属性的子组件可以通过`this.context.属性名`  获取到属性   
 还需定义`contextTypes`  
 例: 
