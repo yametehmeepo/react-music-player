@@ -46,9 +46,9 @@ PS.
 ####  怎样使用Context  
 ****
 
-1.用到prop-types 这个包 , npm install prop-types --save 
+1.用到prop-types 这个包 , npm install prop-types --save  
 2.通过给App（Context宿主）添加 `childContextTypes` 和 `getChildContext`,  
-可以实现在该组件子结构下的所有组件（e.g. List）直接通过定义`contextTypes`来获取。
+可以实现在该组件子结构下的所有组件（e.g. List）直接通过定义`contextTypes`来获取。 
 如果未定义contextTypes的话，context是一个空对象。
 例: 
 <pre><code>
