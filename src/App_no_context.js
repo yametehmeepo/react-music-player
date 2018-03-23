@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { HashRouter as Router , Route ,Switch } from 'react-router-dom';
 import PubSub from 'pubsub-js';
 import Header from './components/header/header';
@@ -36,13 +35,6 @@ export default class App extends Component {
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
     this.deletemusic = this.deletemusic.bind(this);
-  }
-  getChildContext(){
-    return {
-      musiclist: this.state.musiclist,
-      currentIndex: this.state.currentIndex,
-      isplayed: this.state.isplayed
-    }
   }
   componentDidMount(){
     var _this = this;
@@ -231,18 +223,11 @@ export default class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" render={()=>(<Player {...this.state} />)} />
-            <Route path="/list" component={List} />
-            <Route path="/lyrics" component={Lyrics} />
+            <Route path="/list" render={()=>(<List {...this.state} />)} />
+            <Route path="/lyrics" render={()=>(<Lyrics {...this.state} />)} />
           </Switch>
         </div>  
       </Router>
     );
   }
 }
-
-App.childContextTypes = {
-  musiclist: PropTypes.array,
-  currentIndex: PropTypes.number,
-  isplayed: PropTypes.bool
-}
-

@@ -8,6 +8,7 @@ v4版本相对于v2版本 变动了好多API,本身我react-router部分接触�
 v4版本踩了好多坑,如`父组件向子组件传值`是如何实现的,后台获得的数据接口带有html标签  
 用`dangerouslySetInnerHTML={{__html: text}}`的方式渲染等等
 
+
 最终完成的音乐播放器具备如下功能:  
 #### 1.播放页面  
 a)播放进度控制  
@@ -31,4 +32,45 @@ b)返回播放列表
 
 
 PS.  
-本地创建一个json数据文件,歌曲的地址有可能失效,请用chrome访问酷狗音乐 并在network里查看有效歌曲地址
+本地创建一个json数据文件,歌曲的地址有可能失效,请用chrome访问酷狗音乐 并在network里查看有效歌曲地址  
+
+
+追加: 研究了一下react 的 `context`  (https://segmentfault.com/a/1190000011386300) 讲的让我理解了一些关于context传递属性  
+####  什么是Context
+****
+当我们使用React时，很容易的通过观察组件的props来跟踪组件间的数据流流向，这种跟踪观察方式也让我们很容易的去理解组件。  
+
+而有的时候，我们不想让一个props从最外层，通过组件一层一层的传递到目标组件上，这时就可以通过context来直接实现我们希望的操作。
+
+
+####  怎样使用Context  
+****
+
+1.用到prop-types 这个包 , npm install prop-types --save 
+2.通过给App（Context宿主）添加 `childContextTypes` 和 `getChildContext`,  
+可以实现在该组件子结构下的所有组件（e.g. List）直接通过定义`contextTypes`来获取。
+如果未定义contextTypes的话，context是一个空对象。
+例: 
+<code>
+App.childContextTypes = {
+  musiclist: PropTypes.array,
+  currentIndex: PropTypes.number,
+  isplayed: PropTypes.bool
+}
+</code>
+3.用到上面三个属性的子组件可以通过`this.context.属性名`  获取到属性   
+还需定义`contextTypes`  
+例: 
+<code>
+List.contextTypes = {
+	musiclist: PropTypes.array,
+	currentIndex: PropTypes.number,
+	isplayed: PropTypes.bool
+}
+</code>
+
+4.不要更新Context!
+
+
+
+

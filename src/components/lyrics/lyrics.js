@@ -1,4 +1,5 @@
 import React , { Component } from 'react'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import './lyricsshow.less'
 
@@ -7,7 +8,7 @@ export default class Lyrics extends Component {
 		//this.text.innerHTML = this.props.musiclist[this.props.currentIndex].lyrics;
 	}
 	render(){
-		var text = this.props.musiclist[this.props.currentIndex].lyrics;
+		var text = this.context.musiclist[this.context.currentIndex].lyrics;
 		//console.log(text);
 		return (
 			<div>
@@ -23,3 +24,19 @@ export default class Lyrics extends Component {
 		)
 	}
 }
+
+Lyrics.contextTypes = {
+	musiclist: PropTypes.array,
+	currentIndex: PropTypes.number
+}
+
+
+
+
+
+
+
+
+
+
+

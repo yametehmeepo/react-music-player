@@ -1,14 +1,15 @@
 import React , { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ListItem from './listitem'
 import './list.less'
 
 export default class List extends Component {
 	render(){
-		var musiclist = this.props.musiclist;
+		var musiclist = this.context.musiclist;
 		var listGroup = musiclist.map((item,index) => {
 			return (
-				<ListItem key={item.id} isplayed={this.props.isplayed} item={item} index={index} activeClass={this.props.currentIndex===index?'active':''}/>
+				<ListItem key={item.id} isplayed={this.context.isplayed} item={item} index={index} activeClass={this.context.currentIndex===index?'active':''}/>
 			)
 		})
 		return (
@@ -21,3 +22,17 @@ export default class List extends Component {
 		)
 	}
 }
+
+List.contextTypes = {
+	musiclist: PropTypes.array,
+	currentIndex: PropTypes.number,
+	isplayed: PropTypes.bool
+}
+
+
+
+
+
+
+
+
