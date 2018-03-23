@@ -51,23 +51,23 @@ PS.
 可以实现在该组件子结构下的所有组件（e.g. List）直接通过定义`contextTypes`来获取。
 如果未定义contextTypes的话，context是一个空对象。
 例: 
-<code>
+<pre><code>
 App.childContextTypes = {
   musiclist: PropTypes.array,
   currentIndex: PropTypes.number,
   isplayed: PropTypes.bool
 }
-</code>
+</code></pre>
 3.用到上面三个属性的子组件可以通过`this.context.属性名`  获取到属性   
 还需定义`contextTypes`  
 例: 
-<code>
+<pre><code>
 List.contextTypes = {
 	musiclist: PropTypes.array,
 	currentIndex: PropTypes.number,
 	isplayed: PropTypes.bool
 }
-</code>
+</code></pre>
 
 4.不要更新Context!
 
