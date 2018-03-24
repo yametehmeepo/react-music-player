@@ -8,6 +8,10 @@ v4版本相对于v2版本 变动了好多API,本身我react-router部分接触�
 v4版本踩了好多坑,如`父组件向子组件传值`是如何实现的,后台获得的数据接口带有html标签  
 用`dangerouslySetInnerHTML={{__html: text}}`的方式渲染等等
 
+使用`pubsub-js`注意事项:  
+`PubSub.publish(事件名,参数)`  
+`PubSub.subscribe(事件名,(msg,参数))`   msg为固定的,一定要带上它, 主要是后面的才是传递过来的参数
+
 
 最终完成的音乐播放器具备如下功能:  
 #### 1.播放页面  
